@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoiceSpeed</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main>
+        <div class="timer-input-container">
+            <label for="timer-seconds" class="timer-label">Timer (seconds):</label>
+            <input type="number" id="timer-seconds" class="timer-input" min="30" max="300" value="60" aria-label="Timer in seconds">
+            <button class="timer-set-btn" aria-label="Set timer">Set</button>
+        </div>
+        <div class="speaker-icon" tabindex="0" aria-label="Speaker visualization">
+            <div class="speaker-hue"></div>
+            <svg class="wave-svg" viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M0 30 Q 20 10, 40 30 T 80 30 T 120 30" stroke="#2d98da" stroke-width="4" fill="none"/>
+                <path d="M0 40 Q 20 20, 40 40 T 80 40 T 120 40" stroke="#38ef7d" stroke-width="3" fill="none"/>
+                <path d="M0 50 Q 20 30, 40 50 T 80 50 T 120 50" stroke="#2d98da" stroke-width="2" fill="none"/>
+            </svg>
+        </div>
+        <button class="start-btn" aria-label="Start or stop timer and speech recognition">Start</button>
+        <div class="transcript" aria-live="polite"></div>
+        <div id="done-popup" class="done-popup" role="status">done</div>
+        <button class="mode-toggle-btn" id="mode-toggle-btn" title="Toggle dark/light mode" aria-label="Toggle dark or light mode">🌙</button>
+    </main>
+    <script src="source.js"></script>
+</body>
+</html>

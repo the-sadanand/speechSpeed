@@ -1,0 +1,277 @@
+/* CSS Variables for easy theme management */
+:root {
+    --primary-blue: #2d98da;
+    --primary-green: #38ef7d;
+    --primary-bg: #e3f0ff;
+    --primary-bg-gradient: linear-gradient(135deg, #e3f0ff 0%, #f5f6fa 100%);
+    --primary-shadow: 0 0 0 100vmax rgba(60,60,60,0.13) inset, 0 12px 48px 0 rgba(60,60,60,0.18);
+    --dark-bg: #181c24;
+    --dark-panel: #23283a;
+    --white: #fff;
+    --popup-green: #27ae60;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background: var(--primary-bg-gradient);
+    box-shadow: var(--primary-shadow);
+    font-family: 'Segoe UI', 'Arial', sans-serif;
+}
+
+main {
+    width: 100vw;
+    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.speaker-icon {
+    width: 30vw;
+    max-width: 160px;
+    min-width: 80px;
+    height: 30vw;
+    max-height: 160px;
+    min-height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #2d98da 70%, #38ef7d 100%);
+    border-radius: 50%;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    transition: box-shadow 0.2s;
+    margin-bottom: 32px;
+    position: relative;
+    overflow: visible;
+    outline: none;
+}
+.speaker-icon:focus {
+    box-shadow: 0 0 0 3px var(--primary-blue), 0 4px 24px rgba(0,0,0,0.08);
+}
+.speaker-icon:hover {
+    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+}
+.wave-svg {
+    width: 80px;
+    height: 48px;
+    display: block;
+    margin: 0 auto;
+    z-index: 1;
+    position: relative;
+}
+.speaker-hue {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 130%;
+    height: 130%;
+    border-radius: 50%;
+    background: conic-gradient(
+        var(--primary-blue) 0%,
+        var(--primary-green) 40%,
+        var(--primary-blue) 70%,
+        var(--primary-green) 100%
+    );
+    filter: blur(24px) saturate(1.5);
+    opacity: 0.7;
+    z-index: 0;
+    animation: hue-rotate 3s linear infinite;
+    display: none;
+}
+.speaker-icon.active .speaker-hue {
+    display: block;
+}
+@keyframes hue-rotate {
+    0% { filter: blur(24px) saturate(1.5) hue-rotate(0deg); }
+    100% { filter: blur(24px) saturate(1.5) hue-rotate(360deg); }
+}
+.speaker-icon.animate {
+    animation: speaker-bounce 0.5s cubic-bezier(.68,-0.55,.27,1.55) 1;
+}
+@keyframes speaker-bounce {
+    0% { transform: scale(1); }
+    30% { transform: scale(1.15); }
+    60% { transform: scale(0.92); }
+    100% { transform: scale(1); }
+}
+
+.start-btn {
+    display: block;
+    margin: 0 auto;
+    padding: 0.75em 2.5em;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--white);
+    background: var(--primary-blue);
+    border: none;
+    border-radius: 2em;
+    box-shadow: 0 2px 8px rgba(45,152,218,0.08);
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s;
+}
+.start-btn:hover, .start-btn:focus {
+    background: #2176b6;
+    box-shadow: 0 4px 16px rgba(45,152,218,0.15);
+    outline: none;
+}
+
+.transcript {
+    width: 80vw;
+    max-width: 700px;
+    min-height: 2em;
+    margin: 32px auto 0 auto;
+    font-size: 1.1rem;
+    color: #222;
+    background: var(--white);
+    border-radius: 1em;
+    padding: 1em 1.5em;
+    box-sizing: border-box;
+    overflow-x: auto;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+    box-shadow: 0 2px 12px rgba(45,152,218,0.10);
+    border: 1.5px solid transparent;
+}
+
+.timer-input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75em;
+    margin-top: 2em;
+    margin-bottom: 1.5em;
+}
+.timer-label {
+    font-size: 1.1rem;
+    color: var(--primary-blue);
+    font-weight: 600;
+}
+.timer-input {
+    width: 48px;
+    padding: 0.3em 0.5em;
+    font-size: 1rem;
+    border: 1.5px solid var(--primary-blue);
+    border-radius: 0.5em;
+    outline: none;
+    transition: border 0.2s;
+    text-align: center;
+}
+.timer-input:focus {
+    border: 1.5px solid #2176b6;
+}
+.timer-input.disabled, .timer-set-btn.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+.timer-set-btn {
+    padding: 0.45em 1.2em;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--white);
+    background: var(--primary-blue);
+    border: none;
+    border-radius: 0.5em;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.timer-set-btn:hover, .timer-set-btn:focus {
+    background: #2176b6;
+}
+
+.done-popup {
+    position: fixed;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--popup-green);
+    color: var(--white);
+    font-size: 1.2rem;
+    font-weight: 700;
+    padding: 1em 2.5em;
+    border-radius: 1em;
+    box-shadow: 0 4px 24px rgba(39,174,96,0.15);
+    z-index: 1000;
+    display: none;
+    animation: fadeInOut 2s linear;
+}
+@keyframes fadeInOut {
+    0% { opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+.mode-toggle-btn {
+    position: fixed;
+    top: 18px;
+    right: 24px;
+    z-index: 1200;
+    background: var(--white);
+    color: var(--primary-blue);
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    font-size: 1.5rem;
+    box-shadow: 0 2px 8px rgba(45,152,218,0.10);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+body.dark-mode {
+    background: var(--dark-bg);
+}
+body.dark-mode .mode-toggle-btn {
+    background: var(--dark-panel);
+    color: var(--white);
+}
+body.dark-mode .timer-label,
+body.dark-mode .transcript {
+    color: var(--white);
+}
+body.dark-mode .transcript {
+    background: var(--dark-panel);
+    border: 1.5px solid var(--primary-blue);
+}
+body.dark-mode .speaker-icon {
+    background: linear-gradient(135deg, var(--dark-panel) 70%, var(--primary-blue) 100%);
+}
+body.dark-mode .start-btn,
+body.dark-mode .timer-set-btn {
+    background: var(--dark-panel);
+    color: var(--white);
+}
+body.dark-mode .start-btn:hover,
+body.dark-mode .start-btn:focus,
+body.dark-mode .timer-set-btn:hover,
+body.dark-mode .timer-set-btn:focus {
+    background: var(--primary-blue);
+    color: var(--white);
+}
+
+@media (max-width: 600px) {
+    .speaker-icon {
+        width: 40vw;
+        height: 40vw;
+        margin-bottom: 20px;
+    }
+    .start-btn {
+        font-size: 1rem;
+        padding: 0.6em 1.8em;
+        margin-top: 0;
+    }
+    .transcript {
+        font-size: 1rem;
+        padding: 0.7em 1em;
+    }
+}
